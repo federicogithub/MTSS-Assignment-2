@@ -1,0 +1,15 @@
+////////////////////////////////////////////////////////////////////
+// [FEDERICO] [DE SANCTIS] [2009107]
+// [GABRIELE] [SARACCO] [2009997]
+////////////////////////////////////////////////////////////////////
+
+package it.unipd.mtss.model;
+
+public enum ItemType {
+
+    Processor, 
+    Motherboard, 
+    Mouse,
+    Keyboard
+
+}
