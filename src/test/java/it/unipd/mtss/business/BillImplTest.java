@@ -45,7 +45,6 @@ public class BillImplTest {
 
     @Test(expected=BillException.class)
     public void calcoloDelTotaleConListaOrdiniVuotaTest() {
-
         testBill.getOrderPrice(itemsOrdered, user);
     }
 
@@ -54,5 +53,12 @@ public class BillImplTest {
         itemsOrdered = null;
         testBill.getOrderPrice(itemsOrdered, user);
     }
+    @Test
+    public void totaleConScontoSulMenoCaroSePiùDiCinqueProcessoriTest() {
 
+        for(int i=0; i<6; i++) {
+            itemsOrdered.add(new EItem( ItemType.Processor, "AMD",100.00));
+        }
+        assertEquals(550, testBill.getOrderPrice(itemsOrdered,user), 0.0);
+    }
 }
