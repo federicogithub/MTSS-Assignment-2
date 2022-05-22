@@ -15,12 +15,14 @@ public class BillImpl implements Bill {
 
     @Override
     public double getOrderPrice(List<EItem> itemsOrdered, User user) throws BillException {
+
         double total = 0;
         double min = 10000;
         double minM = 10000;
+        double minMT = 10000;
         int processori = 0;
         int mouse = 0;
-
+        int tastiere = 0;
 
         if(itemsOrdered == null) {
             throw new BillException("Lista nulla");
@@ -30,7 +32,7 @@ public class BillImpl implements Bill {
             throw new BillException("Lista ordini vuota");
         }
 
-        for (EItem item : itemsOrdered) { 
+        for (EItem item : itemsOrdered) {
             double current = item.getPrice();
             if(item.getType().equals(ItemType.Processor)) {
                 processori++;
@@ -38,11 +40,17 @@ public class BillImpl implements Bill {
             if(item.getType().equals(ItemType.Mouse)) {
                 mouse++;
             }
-            if(current<minM && item.getType().equals(ItemType.Mouse) ) {
+            if(item.getType().equals(ItemType.Keyboard)) {
+                tastiere++;
+            }
+            if((current<=minM) && item.getType().equals(ItemType.Mouse) ) {
                 minM=current;
             }
-            if(current<min && item.getType().equals(ItemType.Processor) ) {
+            if((current<=min) && item.getType().equals(ItemType.Processor) ) {
                 min=current;
+            }
+            if((current<=minMT) && (item.getType().equals(ItemType.Mouse) || item.getType().equals(ItemType.Keyboard))) {
+                minMT=current;
             }
             total += current;
         }
@@ -53,6 +61,10 @@ public class BillImpl implements Bill {
 
         if(mouse > 10) {
             total -= minM;
+        }
+
+        if((mouse == tastiere) && (mouse != 0)) {
+            total -= minMT;
         }
 
         return total;

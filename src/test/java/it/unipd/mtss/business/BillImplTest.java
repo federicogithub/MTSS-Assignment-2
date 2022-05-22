@@ -39,19 +39,23 @@ public class BillImplTest {
         itemsOrdered.add(new EItem( ItemType.Motherboard, "Gigabyte", 150.00));
         itemsOrdered.add(new EItem( ItemType.Keyboard, "Logitech", 80.00));
         itemsOrdered.add(new EItem( ItemType.Mouse, "Razer", 50.00));
+        itemsOrdered.add(new EItem( ItemType.Mouse, "Logitech", 60.00));
 
-        assertEquals(480, testBill.getOrderPrice(itemsOrdered,user), 0.0);
+        assertEquals(540, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
 
     @Test(expected=BillException.class)
     public void calcoloDelTotaleConListaOrdiniVuotaTest() {
+
         testBill.getOrderPrice(itemsOrdered, user);
+
     }
 
     @Test(expected=BillException.class)
     public void calcoloDelTotaleConListaOrdiniNullaTest() {
         itemsOrdered = null;
         testBill.getOrderPrice(itemsOrdered, user);
+
     }
 
     @Test
@@ -62,7 +66,7 @@ public class BillImplTest {
         }
         assertEquals(550, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
-
+	
     @Test
     public void totaleConScontoSulMenoCaroSePiùDiDieciMouseTest() {
 
@@ -70,6 +74,18 @@ public class BillImplTest {
             itemsOrdered.add(new EItem( ItemType.Mouse, "Razer",50.00));
         }
         assertEquals(500, testBill.getOrderPrice(itemsOrdered,user), 0.0);
+    }
+
+    @Test
+    public void totaleConScontoSulMenoCaroSeStessiMouseETastiereTest() {
+
+        for(int i=0; i<2; i++) {
+            itemsOrdered.add(new EItem( ItemType.Mouse, "Razer",50.00));
+        }
+        for(int i=0; i<2; i++) {
+            itemsOrdered.add(new EItem( ItemType.Keyboard, "Logitech",80.00));
+        }
+        assertEquals(210, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
 
 }
