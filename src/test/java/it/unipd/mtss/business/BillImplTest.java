@@ -22,8 +22,8 @@ import static org.junit.Assert.assertEquals;
 public class BillImplTest {
 
     private List<EItem> itemsOrdered;
-    private BillImpl testBill;
-    private User user;
+    private BillImpl testBill; 
+    private User user; 
 
     @Before
     public void setup() {
@@ -55,7 +55,7 @@ public class BillImplTest {
     public void calcoloDelTotaleConListaOrdiniNullaTest() {
         itemsOrdered = null;
         testBill.getOrderPrice(itemsOrdered, user);
-
+	
     }
 
     @Test
@@ -63,7 +63,7 @@ public class BillImplTest {
 
         for(int i=0; i<6; i++) {
             itemsOrdered.add(new EItem( ItemType.Processor, "AMD",100.00));
-        }
+        }       
         assertEquals(550, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
 
@@ -104,5 +104,14 @@ public class BillImplTest {
         }
 
         testBill.getOrderPrice(itemsOrdered, user);
+    }	
+
+    @Test
+    public void totaleConCommissioneSeMenoDi10euroTest() {
+
+        itemsOrdered.add(new EItem( ItemType.Mouse, "Logitech",5.00));
+
+        assertEquals(7.00, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
+
 }
