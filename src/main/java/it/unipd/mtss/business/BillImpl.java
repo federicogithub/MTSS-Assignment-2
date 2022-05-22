@@ -32,6 +32,10 @@ public class BillImpl implements Bill {
             throw new BillException("Lista ordini vuota");
         }
 
+        if(itemsOrdered.size() > 30) {
+            throw new BillException("Limite ordine superato");
+        }
+
         for (EItem item : itemsOrdered) {
             double current = item.getPrice();
             if(item.getType().equals(ItemType.Processor)) {

@@ -48,7 +48,7 @@ public class BillImplTest {
     public void calcoloDelTotaleConListaOrdiniVuotaTest() {
 
         testBill.getOrderPrice(itemsOrdered, user);
-
+	
     }
 
     @Test(expected=BillException.class)
@@ -94,5 +94,15 @@ public class BillImplTest {
         itemsOrdered.add(new EItem( ItemType.Processor, "Intel top",1100.00));
 
         assertEquals(990.00, testBill.getOrderPrice(itemsOrdered,user), 0.0);
+    }
+
+    @Test(expected=BillException.class)
+    public void oltreTrentaElementiPerOrdineTest() {
+
+        for(int i=0; i<35; i++) {
+            itemsOrdered.add(new EItem( ItemType.Processor, "Intel",150.00));
+        }
+
+        testBill.getOrderPrice(itemsOrdered, user);
     }
 }
