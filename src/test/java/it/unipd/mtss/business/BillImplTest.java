@@ -53,6 +53,7 @@ public class BillImplTest {
         itemsOrdered = null;
         testBill.getOrderPrice(itemsOrdered, user);
     }
+
     @Test
     public void totaleConScontoSulMenoCaroSePiùDiCinqueProcessoriTest() {
 
@@ -61,4 +62,14 @@ public class BillImplTest {
         }
         assertEquals(550, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
+
+    @Test
+    public void totaleConScontoSulMenoCaroSePiùDiDieciMouseTest() {
+
+        for(int i=0; i<11; i++) {
+            itemsOrdered.add(new EItem( ItemType.Mouse, "Razer",50.00));
+        }
+        assertEquals(500, testBill.getOrderPrice(itemsOrdered,user), 0.0);
+    }
+
 }

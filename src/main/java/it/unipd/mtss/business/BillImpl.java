@@ -16,8 +16,11 @@ public class BillImpl implements Bill {
     @Override
     public double getOrderPrice(List<EItem> itemsOrdered, User user) throws BillException {
         double total = 0;
-        double min = 1000;
+        double min = 10000;
+        double minM = 10000;
         int processori = 0;
+        int mouse = 0;
+
 
         if(itemsOrdered == null) {
             throw new BillException("Lista nulla");
@@ -32,7 +35,13 @@ public class BillImpl implements Bill {
             if(item.getType().equals(ItemType.Processor)) {
                 processori++;
             }
-            if(current<min) {
+            if(item.getType().equals(ItemType.Mouse)) {
+                mouse++;
+            }
+            if(current<minM && item.getType().equals(ItemType.Mouse) ) {
+                minM=current;
+            }
+            if(current<min && item.getType().equals(ItemType.Processor) ) {
                 min=current;
             }
             total += current;
@@ -40,6 +49,10 @@ public class BillImpl implements Bill {
 
         if(processori > 5) {
             total -= 0.5*min;
+        }
+
+        if(mouse > 10) {
+            total -= minM;
         }
 
         return total;
