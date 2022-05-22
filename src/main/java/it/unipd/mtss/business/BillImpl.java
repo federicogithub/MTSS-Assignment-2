@@ -67,6 +67,10 @@ public class BillImpl implements Bill {
             total -= minMT;
         }
 
+        if(total>1000) {
+            total -= total*0.1;
+        }
+
         return total;
     }
 }

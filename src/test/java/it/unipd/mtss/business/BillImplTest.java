@@ -66,7 +66,7 @@ public class BillImplTest {
         }
         assertEquals(550, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
-	
+
     @Test
     public void totaleConScontoSulMenoCaroSePiùDiDieciMouseTest() {
 
@@ -88,4 +88,11 @@ public class BillImplTest {
         assertEquals(210, testBill.getOrderPrice(itemsOrdered,user), 0.0);
     }
 
+    @Test
+    public void totaleConScontoSeOltre1000euroDiSpesaTest() {
+
+        itemsOrdered.add(new EItem( ItemType.Processor, "Intel top",1100.00));
+
+        assertEquals(990.00, testBill.getOrderPrice(itemsOrdered,user), 0.0);
+    }
 }
